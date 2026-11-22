@@ -1,329 +1,241 @@
 import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-/* =========================================================
-   1. FUNDO 3D ARQUITETÔNICO SUTIL (Three.js)
-   ========================================================= */
-function initBackground3D() {
-  const canvas = document.getElementById('hero-3d-canvas');
-  if (!canvas) return;
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 0, 14);
-
+/* Constrói letras caixa 3D geométricas ("REAL") reutilizáveis */
+function createRealLetters(material) {
   const group = new THREE.Group();
-  scene.add(group);
+  const bar = (w, h, x, y, d = 0.16) => {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
+    m.position.set(x, y, 0);
+    return m;
+  };
 
-  // Painéis metálicos arquitetônicos sutis em profundidade
-  const panelGeo = new THREE.BoxGeometry(1.6, 0.9, 0.06);
-  const panelMat = new THREE.MeshStandardMaterial({
-    color: 0x0f2747,
-    metalness: 0.85,
-    roughness: 0.25,
-    transparent: true,
-    opacity: 0.32,
-  });
+  // R
+  const r = new THREE.Group();
+  r.add(bar(0.11, 0.64, 0, 0));
+  r.add(bar(0.32, 0.11, 0.16, 0.265));
+  r.add(bar(0.32, 0.11, 0.16, 0.02));
+  r.add(bar(0.11, 0.35, 0.30, 0.14));
+  const rLeg = bar(0.11, 0.38, 0.24, -0.15);
+  rLeg.rotation.z = 0.42;
+  r.add(rLeg);
+  group.add(r);
 
-  const panels = [];
-  const positions = [
-    [-7.5, 3.2, -4],
-    [7.8, 3.6, -5],
-    [-6.2, -3.4, -3],
-    [6.5, -2.8, -4],
-    [0.5, 4.5, -6],
-    [-2.5, -4.6, -5],
-  ];
+  // E
+  const e = new THREE.Group();
+  e.position.x = 0.72;
+  e.add(bar(0.11, 0.64, 0, 0));
+  e.add(bar(0.36, 0.11, 0.18, 0.265));
+  e.add(bar(0.30, 0.10, 0.15, 0.0));
+  e.add(bar(0.36, 0.11, 0.18, -0.265));
+  group.add(e);
 
-  positions.forEach(([x, y, z], i) => {
-    const mesh = new THREE.Mesh(panelGeo, panelMat);
-    mesh.position.set(x, y, z);
-    mesh.rotation.set(0.2 * i, 0.4 * i, 0.1 * i);
-    group.add(mesh);
-    panels.push({ mesh, baseY: y, speed: 0.35 + i * 0.08, phase: i * 1.1 });
-  });
+  // A
+  const a = new THREE.Group();
+  a.position.x = 1.48;
+  const aL = bar(0.11, 0.66, 0.08, 0);
+  aL.rotation.z = -0.22;
+  const aR = bar(0.11, 0.66, 0.30, 0);
+  aR.rotation.z = 0.22;
+  a.add(aL, aR, bar(0.28, 0.10, 0.19, -0.06));
+  group.add(a);
 
-  const amb = new THREE.AmbientLight(0x8da9c4, 0.8);
-  scene.add(amb);
+  // L
+  const l = new THREE.Group();
+  l.position.x = 2.24;
+  l.add(bar(0.11, 0.64, 0, 0));
+  l.add(bar(0.36, 0.11, 0.18, -0.265));
+  group.add(l);
 
-  const goldLight = new THREE.PointLight(0xd4af37, 14, 30);
-  goldLight.position.set(4, 3, 6);
-  scene.add(goldLight);
-
-  const blueLight = new THREE.PointLight(0x2563eb, 12, 30);
-  blueLight.position.set(-6, -3, 5);
-  scene.add(blueLight);
-
-  let targetX = 0;
-  let targetY = 0;
-  window.addEventListener('pointermove', (e) => {
-    targetX = (e.clientX / window.innerWidth - 0.5) * 1.2;
-    targetY = (e.clientY / window.innerHeight - 0.5) * 0.8;
-  });
-
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-
-  const clock = new THREE.Clock();
-  function animate() {
-    requestAnimationFrame(animate);
-    const t = clock.getElapsedTime();
-    panels.forEach((p) => {
-      p.mesh.position.y = p.baseY + Math.sin(t * p.speed + p.phase) * 0.35;
-      p.mesh.rotation.y += 0.002;
-    });
-    group.rotation.y += (targetX * 0.15 - group.rotation.y) * 0.04;
-    group.rotation.x += (targetY * 0.12 - group.rotation.x) * 0.04;
-    renderer.render(scene, camera);
-  }
-  animate();
+  return group;
 }
 
 /* =========================================================
-   2. MAQUETE 3D INTERATIVA DA FACHADA EM ACM + LED (Three.js)
+   1. MAQUETE 3D INTERATIVA DO HERO COM UNREALBLOOMPASS REAL
    ========================================================= */
-function initFacade3D() {
-  const viewport = document.getElementById('stage-viewport');
-  const canvas = document.getElementById('facade-canvas');
-  if (!viewport || !canvas) return;
+function initHeroFacade3D() {
+  const box = document.getElementById('hero-stage-box');
+  const canvas = document.getElementById('hero-facade-canvas');
+  if (!box || !canvas) return;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.25;
+  renderer.toneMappingExposure = 1.15;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(34, viewport.clientWidth / viewport.clientHeight, 0.1, 100);
-  camera.position.set(2.1, 1.35, 6.9);
-  camera.lookAt(0, 0.25, 0);
+  const camera = new THREE.PerspectiveCamera(34, box.clientWidth / box.clientHeight, 0.1, 100);
+  camera.position.set(2.0, 1.25, 6.8);
+  camera.lookAt(0, 0.22, 0);
+
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(box.clientWidth, box.clientHeight),
+    0.65,
+    0.45,
+    0.72
+  );
+  composer.addPass(bloomPass);
 
   const resize = () => {
-    const w = viewport.clientWidth;
-    const h = viewport.clientHeight;
+    const w = box.clientWidth;
+    const h = box.clientHeight;
     renderer.setSize(w, h, false);
+    composer.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   };
   resize();
   window.addEventListener('resize', resize);
 
-  // Grupo principal da maquete arquitetônica
   const building = new THREE.Group();
   scene.add(building);
 
-  // Materiais PBR
-  const acmMaterial = new THREE.MeshStandardMaterial({
+  const acmMat = new THREE.MeshStandardMaterial({
     color: new THREE.Color('#0b2545'),
-    metalness: 0.72,
-    roughness: 0.28,
+    metalness: 0.78,
+    roughness: 0.24,
   });
 
-  const darkTrimMat = new THREE.MeshStandardMaterial({
-    color: 0x101720,
+  const frameMat = new THREE.MeshStandardMaterial({
+    color: 0x0e131b,
     metalness: 0.65,
     roughness: 0.35,
   });
 
   const steelMat = new THREE.MeshStandardMaterial({
-    color: 0xd8e2ec,
+    color: 0xdce4ee,
     metalness: 0.92,
-    roughness: 0.18,
+    roughness: 0.16,
   });
 
   const glassMat = new THREE.MeshPhysicalMaterial({
-    color: 0x091a2e,
+    color: 0x0a1c33,
     metalness: 0.15,
     roughness: 0.08,
-    transmission: 0.25,
     reflectivity: 0.95,
   });
 
-  const ledMaterial = new THREE.MeshStandardMaterial({
+  const ledMat = new THREE.MeshStandardMaterial({
     color: new THREE.Color('#f5c451'),
     emissive: new THREE.Color('#f5c451'),
-    emissiveIntensity: 3.2,
+    emissiveIntensity: 2.6,
     roughness: 0.2,
   });
 
-  const letterMaterial = new THREE.MeshStandardMaterial({
+  const letterMat = new THREE.MeshStandardMaterial({
     color: 0xf8fafc,
     emissive: new THREE.Color('#f5c451'),
-    emissiveIntensity: 0.45,
-    metalness: 0.85,
+    emissiveIntensity: 0.95,
+    metalness: 0.8,
     roughness: 0.18,
   });
 
-  // Base / Calçada arquitetônica
-  const base = new THREE.Mesh(new THREE.BoxGeometry(6.2, 0.18, 3.8), darkTrimMat);
+  // Base
+  const base = new THREE.Mesh(new THREE.BoxGeometry(6.0, 0.16, 3.6), frameMat);
   base.position.set(0, -1.45, 0);
   building.add(base);
 
-  // Corpo estrutural do prédio
-  const core = new THREE.Mesh(new THREE.BoxGeometry(4.6, 2.7, 2.2), darkTrimMat);
+  // Núcleo estrutural
+  const core = new THREE.Mesh(new THREE.BoxGeometry(4.6, 2.7, 2.1), frameMat);
   core.position.set(0, -0.05, -0.2);
   building.add(core);
 
-  // Painéis modulares de ACM com frisos reais (3 colunas x 2 linhas)
-  const panelW = 1.48;
-  const panelH = 0.76;
-  const gap = 0.06;
+  // 6 Painéis ACM com frisos precisos
   for (let row = 0; row < 2; row++) {
     for (let col = 0; col < 3; col++) {
-      const px = (col - 1) * (panelW + gap);
-      const py = 0.48 + row * (panelH + gap);
-      const panel = new THREE.Mesh(new THREE.BoxGeometry(panelW, panelH, 0.14), acmMaterial);
-      panel.position.set(px, py, 0.96);
+      const panel = new THREE.Mesh(new THREE.BoxGeometry(1.48, 0.76, 0.15), acmMat);
+      panel.position.set((col - 1) * 1.54, 0.48 + row * 0.82, 0.94);
       building.add(panel);
     }
   }
 
-  // Pilares laterais em ACM
-  [-2.22, 2.22].forEach((x) => {
-    const pillar = new THREE.Mesh(new THREE.BoxGeometry(0.42, 2.8, 0.42), acmMaterial);
-    pillar.position.set(x, 0.02, 0.92);
-    building.add(pillar);
+  // Pilares laterais
+  [-2.24, 2.24].forEach((x) => {
+    const p = new THREE.Mesh(new THREE.BoxGeometry(0.42, 2.82, 0.44), acmMat);
+    p.position.set(x, 0.02, 0.90);
+    building.add(p);
   });
 
-  // Marquise metálica projetada em aço escovado
-  const marquee = new THREE.Mesh(new THREE.BoxGeometry(4.85, 0.16, 0.88), steelMat);
-  marquee.position.set(0, -0.02, 1.18);
+  // Marquise
+  const marquee = new THREE.Mesh(new THREE.BoxGeometry(4.9, 0.15, 0.88), steelMat);
+  marquee.position.set(0, -0.02, 1.16);
   building.add(marquee);
 
-  // Vitrine de vidro inferior
+  // Vitrine
   const glass = new THREE.Mesh(new THREE.BoxGeometry(3.9, 1.32, 0.08), glassMat);
-  glass.position.set(0, -0.74, 0.86);
+  glass.position.set(0, -0.74, 0.84);
   building.add(glass);
 
-  // Perfis de alumínio na vitrine
   [-1.3, 0, 1.3].forEach((x) => {
-    const mullion = new THREE.Mesh(new THREE.BoxGeometry(0.05, 1.34, 0.12), steelMat);
-    mullion.position.set(x, -0.74, 0.88);
-    building.add(mullion);
+    const m = new THREE.Mesh(new THREE.BoxGeometry(0.05, 1.34, 0.12), steelMat);
+    m.position.set(x, -0.74, 0.86);
+    building.add(m);
   });
 
-  // Fitas de LED perimetrais (superior e sob a marquise)
-  const ledTop = new THREE.Mesh(new THREE.BoxGeometry(4.62, 0.055, 0.055), ledMaterial);
+  // Fitas LED com bloom real
+  const ledTop = new THREE.Mesh(new THREE.BoxGeometry(4.64, 0.05, 0.05), ledMat);
   ledTop.position.set(0, 1.66, 1.04);
-  building.add(ledTop);
-
-  const ledMid = new THREE.Mesh(new THREE.BoxGeometry(4.62, 0.045, 0.045), ledMaterial);
+  const ledMid = new THREE.Mesh(new THREE.BoxGeometry(4.64, 0.042, 0.042), ledMat);
   ledMid.position.set(0, 0.08, 1.04);
-  building.add(ledMid);
+  const ledLeft = new THREE.Mesh(new THREE.BoxGeometry(0.045, 1.62, 0.045), ledMat);
+  ledLeft.position.set(-2.31, 0.87, 1.04);
+  building.add(ledTop, ledMid, ledLeft);
 
-  const ledLeft = new THREE.Mesh(new THREE.BoxGeometry(0.05, 1.62, 0.05), ledMaterial);
-  ledLeft.position.set(-2.3, 0.87, 1.04);
-  building.add(ledLeft);
+  // Letras Caixa 3D "REAL"
+  const letters = createRealLetters(letterMat);
+  letters.position.set(-1.32, 0.56, 1.12);
+  building.add(letters);
 
-  // Letras Caixa 3D geométricas estilizadas ("REAL") em alto relevo na fachada
-  const lettersGroup = new THREE.Group();
-  lettersGroup.position.set(-1.35, 0.56, 1.12);
-  building.add(lettersGroup);
+  // Luzes de estúdio
+  scene.add(new THREE.HemisphereLight(0xdbeafe, 0x090c11, 1.3));
+  const key = new THREE.DirectionalLight(0xffffff, 2.4);
+  key.position.set(4, 6, 8);
+  scene.add(key);
 
-  const bar = (w, h, x, y) => {
-    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.14), letterMaterial);
-    m.position.set(x, y, 0);
-    return m;
-  };
+  const fill = new THREE.DirectionalLight(0x60a5fa, 1.35);
+  fill.position.set(-5, 2, 6);
+  scene.add(fill);
 
-  // Letra R
-  const letterR = new THREE.Group();
-  letterR.add(bar(0.11, 0.62, 0, 0));
-  letterR.add(bar(0.32, 0.11, 0.16, 0.255));
-  letterR.add(bar(0.32, 0.11, 0.16, 0.02));
-  letterR.add(bar(0.11, 0.34, 0.30, 0.14));
-  const rLeg = bar(0.11, 0.38, 0.24, -0.15);
-  rLeg.rotation.z = 0.42;
-  letterR.add(rLeg);
-  lettersGroup.add(letterR);
+  const ledPoint = new THREE.PointLight(0xf5c451, 7, 8);
+  ledPoint.position.set(0, 0.85, 2.0);
+  building.add(ledPoint);
 
-  // Letra E
-  const letterE = new THREE.Group();
-  letterE.position.x = 0.72;
-  letterE.add(bar(0.11, 0.62, 0, 0));
-  letterE.add(bar(0.36, 0.11, 0.18, 0.255));
-  letterE.add(bar(0.30, 0.10, 0.15, 0.0));
-  letterE.add(bar(0.36, 0.11, 0.18, -0.255));
-  lettersGroup.add(letterE);
-
-  // Letra A
-  const letterA = new THREE.Group();
-  letterA.position.x = 1.48;
-  const aLeft = bar(0.11, 0.65, 0.08, 0);
-  aLeft.rotation.z = -0.22;
-  const aRight = bar(0.11, 0.65, 0.30, 0);
-  aRight.rotation.z = 0.22;
-  letterA.add(aLeft, aRight, bar(0.28, 0.10, 0.19, -0.06));
-  lettersGroup.add(letterA);
-
-  // Letra L
-  const letterL = new THREE.Group();
-  letterL.position.x = 2.24;
-  letterL.add(bar(0.11, 0.62, 0, 0));
-  letterL.add(bar(0.36, 0.11, 0.18, -0.255));
-  lettersGroup.add(letterL);
-
-  // Iluminação cênica (realça o metálico do ACM e as letras 3D)
-  scene.add(new THREE.HemisphereLight(0xdbeafe, 0x0f172a, 1.35));
-  scene.add(new THREE.AmbientLight(0x94a9c4, 0.9));
-
-  const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
-  keyLight.position.set(4, 6, 8);
-  scene.add(keyLight);
-
-  const fillLight = new THREE.DirectionalLight(0x60a5fa, 1.6);
-  fillLight.position.set(-5, 2, 6);
-  scene.add(fillLight);
-
-  const rimLight = new THREE.DirectionalLight(0xd4af37, 1.4);
-  rimLight.position.set(6, 4, -4);
-  scene.add(rimLight);
-
-  const ledGlowLight = new THREE.PointLight(0xf5c451, 9, 9);
-  ledGlowLight.position.set(0, 0.85, 2.0);
-  building.add(ledGlowLight);
-
-  // Interação: arrastar para girar a maquete
-  let isDragging = false;
-  let prevX = 0;
-  let prevY = 0;
-  let rotY = -0.22;
+  // Interação arrastar
+  let dragging = false;
+  let px = 0;
+  let py = 0;
+  let rotY = -0.20;
   let rotX = 0.05;
-  let targetRotY = rotY;
-  let targetRotX = rotX;
+  let tRotY = rotY;
+  let tRotX = rotX;
 
-  viewport.addEventListener('pointerdown', (e) => {
-    isDragging = true;
-    prevX = e.clientX;
-    prevY = e.clientY;
+  box.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    px = e.clientX;
+    py = e.clientY;
   });
-
-  window.addEventListener('pointerup', () => {
-    isDragging = false;
-  });
-
+  window.addEventListener('pointerup', () => { dragging = false; });
   window.addEventListener('pointermove', (e) => {
-    if (!isDragging) return;
-    const dx = e.clientX - prevX;
-    const dy = e.clientY - prevY;
-    prevX = e.clientX;
-    prevY = e.clientY;
-    targetRotY += dx * 0.008;
-    targetRotX = Math.max(-0.22, Math.min(0.35, targetRotX + dy * 0.005));
+    if (!dragging) return;
+    tRotY += (e.clientX - px) * 0.008;
+    tRotX = Math.max(-0.22, Math.min(0.32, tRotX + (e.clientY - py) * 0.005));
+    px = e.clientX;
+    py = e.clientY;
   });
 
-  // Controles de cor do ACM e LED em tempo real
+  // Troca de acabamento ao vivo
   document.querySelectorAll('#acm-swatches .swatch').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('#acm-swatches .swatch').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
-      acmMaterial.color.set(btn.dataset.acm);
-      acmMaterial.metalness = parseFloat(btn.dataset.metal || '0.72');
+      acmMat.color.set(btn.dataset.acm);
+      acmMat.metalness = parseFloat(btn.dataset.metal || '0.78');
     });
   });
 
@@ -331,106 +243,222 @@ function initFacade3D() {
     btn.addEventListener('click', () => {
       document.querySelectorAll('#led-swatches .swatch').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
-      const col = new THREE.Color(btn.dataset.led);
-      ledMaterial.color.copy(col);
-      ledMaterial.emissive.copy(col);
-      letterMaterial.emissive.copy(col);
-      ledGlowLight.color.copy(col);
+      const c = new THREE.Color(btn.dataset.led);
+      ledMat.color.copy(c);
+      ledMat.emissive.copy(c);
+      letterMat.emissive.copy(c);
+      ledPoint.color.copy(c);
     });
   });
 
   const clock = new THREE.Clock();
-  function animate() {
-    requestAnimationFrame(animate);
+  function loop() {
+    requestAnimationFrame(loop);
     const t = clock.getElapsedTime();
-    if (!isDragging) {
-      targetRotY += Math.sin(t * 0.45) * 0.0008;
+    if (!dragging && !REDUCED_MOTION) {
+      tRotY += Math.sin(t * 0.4) * 0.0007;
     }
-    rotY += (targetRotY - rotY) * 0.08;
-    rotX += (targetRotX - rotX) * 0.08;
-    building.rotation.y = rotY;
-    building.rotation.x = rotX;
-    building.position.y = Math.sin(t * 1.1) * 0.06;
-    renderer.render(scene, camera);
+    rotY += (tRotY - rotY) * 0.08;
+    rotX += (tRotX - rotX) * 0.08;
+    building.rotation.set(rotX, rotY, 0);
+    composer.render();
   }
-  animate();
+  loop();
 }
 
 /* =========================================================
-   3. EFEITO TILT 3D NOS CARDS + BRILHO METÁLICO
+   2. MOVIMENTO-ASSINATURA (O PICO): MONTAGEM 3D NO SCROLL
+   Lê --progresso (0 -> 1) da seção [data-fx-fixa] em tempo real
    ========================================================= */
-function initTiltCards() {
-  document.querySelectorAll('[data-tilt]').forEach((card) => {
-    card.addEventListener('pointermove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const rx = ((y / rect.height) - 0.5) * -9;
-      const ry = ((x / rect.width) - 0.5) * 9;
-      card.style.setProperty('--mx', `${x}px`);
-      card.style.setProperty('--my', `${y}px`);
-      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-    });
+function initScrollAssembly3D() {
+  const section = document.getElementById('montagem');
+  const canvas = document.getElementById('scroll-assembly-canvas');
+  if (!section || !canvas) return;
 
-    card.addEventListener('pointerleave', () => {
-      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
+  const wrap = canvas.parentElement;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(34, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
+  camera.position.set(1.6, 1.0, 6.6);
+  camera.lookAt(0, 0.35, 0);
+
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloom = new UnrealBloomPass(
+    new THREE.Vector2(wrap.clientWidth, wrap.clientHeight),
+    0.55,
+    0.45,
+    0.75
+  );
+  composer.addPass(bloom);
+
+  const resize = () => {
+    const w = wrap.clientWidth;
+    const h = wrap.clientHeight;
+    renderer.setSize(w, h, false);
+    composer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  };
+  resize();
+  window.addEventListener('resize', resize);
+
+  const rig = new THREE.Group();
+  scene.add(rig);
+
+  // Etapa 1: Estrutura metálica / chassi CNC (wireframe + vigas)
+  const chassisMat = new THREE.MeshStandardMaterial({
+    color: 0x334155,
+    metalness: 0.85,
+    roughness: 0.3,
   });
+  const chassis = new THREE.Group();
+  for (let i = -2; i <= 2; i++) {
+    const v = new THREE.Mesh(new THREE.BoxGeometry(0.08, 2.2, 0.12), chassisMat);
+    v.position.set(i * 1.1, 0.5, 0.55);
+    chassis.add(v);
+  }
+  [-0.5, 0.5, 1.5].forEach((y) => {
+    const h = new THREE.Mesh(new THREE.BoxGeometry(4.5, 0.08, 0.12), chassisMat);
+    h.position.set(0, y, 0.55);
+    chassis.add(h);
+  });
+  rig.add(chassis);
+
+  // Etapa 2: 6 Painéis ACM que voam e encaixam na estrutura
+  const acmMat = new THREE.MeshStandardMaterial({
+    color: 0x0b2545,
+    metalness: 0.82,
+    roughness: 0.22,
+  });
+  const panels = [];
+  for (let row = 0; row < 2; row++) {
+    for (let col = 0; col < 3; col++) {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(1.44, 0.78, 0.14), acmMat);
+      const target = new THREE.Vector3((col - 1) * 1.50, 0.16 + row * 0.84, 0.74);
+      const start = new THREE.Vector3((col - 1) * 3.1, 0.16 + (row === 0 ? -1.4 : 1.9), 2.8);
+      mesh.position.copy(start);
+      rig.add(mesh);
+      panels.push({ mesh, start, target });
+    }
+  }
+
+  // Etapa 3: Letras Caixa 3D + LED que acendem no final do scroll
+  const ledMat = new THREE.MeshStandardMaterial({
+    color: 0xd4af37,
+    emissive: 0xf5c451,
+    emissiveIntensity: 0.0,
+    roughness: 0.2,
+  });
+  const letterMat = new THREE.MeshStandardMaterial({
+    color: 0xf8fafc,
+    emissive: 0xf5c451,
+    emissiveIntensity: 0.0,
+    metalness: 0.85,
+    roughness: 0.18,
+  });
+
+  const ledTop = new THREE.Mesh(new THREE.BoxGeometry(4.52, 0.055, 0.055), ledMat);
+  ledTop.position.set(0, 1.44, 0.86);
+  const ledBot = new THREE.Mesh(new THREE.BoxGeometry(4.52, 0.055, 0.055), ledMat);
+  ledBot.position.set(0, -0.28, 0.86);
+  rig.add(ledTop, ledBot);
+
+  const letters = createRealLetters(letterMat);
+  letters.position.set(-1.32, 0.42, 0.94);
+  rig.add(letters);
+
+  // Luzes
+  scene.add(new THREE.HemisphereLight(0xdbeafe, 0x090c11, 1.25));
+  const key = new THREE.DirectionalLight(0xffffff, 2.2);
+  key.position.set(4, 6, 8);
+  scene.add(key);
+
+  const ledGlow = new THREE.PointLight(0xf5c451, 0, 9);
+  ledGlow.position.set(0, 0.6, 2.0);
+  rig.add(ledGlow);
+
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+  function renderScroll() {
+    requestAnimationFrame(renderScroll);
+    const raw = parseFloat(getComputedStyle(section).getPropertyValue('--progresso')) || (REDUCED_MOTION ? 1 : 0);
+    const p = REDUCED_MOTION ? 1 : clamp01(raw);
+
+    // Rotação suave arquitetônica guiada pela rolagem
+    rig.rotation.y = -0.38 + p * 0.52;
+    rig.rotation.x = 0.08 - p * 0.06;
+
+    // Etapa 1 (0 -> 0.30): chassi escala e firma
+    const s1 = easeOut(clamp01(p / 0.28));
+    chassis.scale.setScalar(0.85 + s1 * 0.15);
+
+    // Etapa 2 (0.22 -> 0.66): painéis ACM encaixam na estrutura
+    const s2 = easeOut(clamp01((p - 0.22) / 0.44));
+    panels.forEach(({ mesh, start, target }) => {
+      mesh.position.lerpVectors(start, target, s2);
+      mesh.rotation.y = (1 - s2) * 0.45;
+    });
+
+    // Etapa 3 (0.62 -> 0.96): letras caixa emergem + LED acende com bloom real
+    const s3 = easeOut(clamp01((p - 0.62) / 0.34));
+    letters.position.z = 0.55 + s3 * 0.44;
+    letters.scale.setScalar(0.7 + s3 * 0.3);
+    ledMat.emissiveIntensity = s3 * 3.0;
+    letterMat.emissiveIntensity = s3 * 1.1;
+    ledGlow.intensity = s3 * 8.5;
+
+    composer.render();
+  }
+  renderScroll();
 }
 
 /* =========================================================
-   4. SIMULADOR DE ORÇAMENTO + WHATSAPP + MENU MOBILE
+   3. BRIEFING WHATSAPP (SEM PREÇOS)
    ========================================================= */
-function initUI() {
-  const menuBtn = document.getElementById('menu-toggle');
-  const nav = document.getElementById('nav-links');
-  if (menuBtn && nav) {
-    menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
-    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => nav.classList.remove('open')));
-  }
-
-  const form = document.getElementById('quote-form');
+function initBriefForm() {
+  const form = document.getElementById('brief-form');
   if (!form) return;
 
-  const servico = document.getElementById('q-servico');
-  const acabamento = document.getElementById('q-acabamento');
-  const largura = document.getElementById('q-largura');
-  const altura = document.getElementById('q-altura');
-  const cidade = document.getElementById('q-cidade');
-  const nome = document.getElementById('q-nome');
+  const largura = document.getElementById('b-largura');
+  const altura = document.getElementById('b-altura');
+  const note = document.getElementById('brief-area-note');
 
-  const updateSummary = () => {
-    const l = parseFloat(largura.value) || 0;
-    const a = parseFloat(altura.value) || 0;
-    const area = (l * a).toFixed(1).replace('.', ',');
-    document.getElementById('sum-servico').textContent = servico.value;
-    document.getElementById('sum-acabamento').textContent = acabamento.value;
-    document.getElementById('sum-area').textContent = `${area} m² (${l}m × ${a}m)`;
-    document.getElementById('sum-cidade').textContent = cidade.value || 'Paraíso do Tocantins - TO';
+  const updateArea = () => {
+    const area = ((parseFloat(largura.value) || 0) * (parseFloat(altura.value) || 0)).toFixed(1).replace('.', ',');
+    note.textContent = `Área aproximada informada: ${area} m² — proposta técnica personalizada via WhatsApp.`;
   };
 
-  [servico, acabamento, largura, altura, cidade].forEach((el) => el.addEventListener('input', updateSummary));
-  updateSummary();
+  largura.addEventListener('input', updateArea);
+  altura.addEventListener('input', updateArea);
+  updateArea();
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const l = parseFloat(largura.value) || 0;
-    const a = parseFloat(altura.value) || 0;
-    const area = (l * a).toFixed(1).replace('.', ',');
+    const nome = document.getElementById('b-nome').value;
+    const servico = document.getElementById('b-servico').value;
+    const acabamento = document.getElementById('b-acabamento').value;
+    const cidade = document.getElementById('b-cidade').value;
+    const area = ((parseFloat(largura.value) || 0) * (parseFloat(altura.value) || 0)).toFixed(1).replace('.', ',');
+
     const msg = [
-      `Olá! Vim pelo site da *Real Fachadas ACM & Gráfica Real Express* e gostaria de um orçamento:`,
-      `• *Cliente/Empresa:* ${nome.value}`,
-      `• *Serviço:* ${servico.value}`,
-      `• *Acabamento:* ${acabamento.value}`,
-      `• *Medidas aprox.:* ${l}m x ${a}m (${area} m²)`,
-      `• *Cidade:* ${cidade.value || 'Paraíso do Tocantins - TO'}`,
+      `Olá! Vim pelo site da *Real Fachadas ACM & Gráfica Real Express* e gostaria de um projeto personalizado:`,
+      `• *Cliente/Empresa:* ${nome}`,
+      `• *Serviço:* ${servico}`,
+      `• *Acabamento:* ${acabamento}`,
+      `• *Medidas aprox.:* ${largura.value}m x ${altura.value}m (${area} m²)`,
+      `• *Cidade:* ${cidade}`,
     ].join('\n');
 
     window.open(`https://wa.me/556336022156?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   });
 }
 
-initBackground3D();
-initFacade3D();
-initTiltCards();
-initUI();
+initHeroFacade3D();
+initScrollAssembly3D();
+initBriefForm();
