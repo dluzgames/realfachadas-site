@@ -74,7 +74,8 @@ function initBriefForm() {
       `• *Cidade:* ${cidade}`,
     ].join('\n');
 
-    window.open(`https://wa.me/556336022156?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+    const canal = document.getElementById('b-canal')?.value || '5563984498130';
+    window.open(`https://wa.me/${canal}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   });
 }
 
