@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Links Oficiais — Gráfica Real Express &amp; Real Fachadas ACM</title>
+  <meta name="description" content="Fale direto no WhatsApp com a Gráfica Real Express e Real Fachadas ACM em Paraíso do Tocantins - TO. Fachadas em ACM, Letras Caixa, Gráfica Rápida, Laser e Brindes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f5f0;
+      --white: #ffffff;
+      --navy: #070d2c;
+      --ink: #0c1228;
+      --muted: #525c70;
+      --gold: #f4a924;
+      --gold-ink: #9c6500;
+      --line: rgba(12, 18, 40, 0.11);
+      --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 36px 18px 48px;
+    }
+
+    .bio-shell {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Cabeçalho da Marca */
+    .profile {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logos-pair {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logos-pair img {
+      width: 68px;
+      height: 68px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 3px solid var(--paper);
+      box-shadow: 0 10px 24px rgba(7, 13, 44, 0.14);
+    }
+
+    .logos-pair img + img {
+      margin-left: -14px;
+    }
+
+    .profile-kicker {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-ink);
+    }
+
+    .profile h1 {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.12;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+
+    .profile p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 34ch;
+    }
+
+    /* Mini faixa de obras reais */
+    .mini-works {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .mini-works img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+
+    /* Lista de Links */
+    .links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      background: var(--white);
+      border: 1px solid var(--line);
+      color: var(--navy);
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--navy);
+      box-shadow: 0 10px 24px rgba(7, 13, 44, 0.08);
+    }
+
+    .link-btn.primary {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+      box-shadow: 0 14px 30px rgba(7, 13, 44, 0.20);
+    }
+
+    .link-btn.primary:hover {
+      background: #0e184b;
+      border-color: #0e184b;
+    }
+
+    .link-btn.primary .link-sub {
+      color: rgba(255, 255, 255, 0.74);
+    }
+
+    .link-btn.primary .link-arrow {
+      color: var(--gold);
+    }
+
+    .link-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .link-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .link-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .link-arrow {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-ink);
+      flex-shrink: 0;
+    }
+
+    /* Rodapé de Endereço */
+    .address-box {
+      text-align: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .address-box strong {
+      color: var(--navy);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="bio-shell">
+    <header class="profile">
+      <div class="logos-pair">
+        <img src="../assets/reais/logo_grafica_real.jpg" alt="Logo Gráfica Real Express">
+        <img src="../assets/reais/logo_real_fachadas.jpg" alt="Logo Real Fachadas ACM">
+      </div>
+      <span class="profile-kicker">Paraíso do Tocantins - TO • +30 anos</span>
+      <h1>Gráfica Real Express &amp;<br>Real Fachadas ACM</h1>
+      <p>Fachadas em ACM, Letras Caixa LED, Gráfica Rápida, Corte a Laser, Brindes e Impressão 3D.</p>
+    </header>
+
+    <div class="mini-works" aria-label="Obras reais executadas">
+      <img src="../assets/reais/obra_otica_renata.jpg" alt="Fachada Ótica Renata">
+      <img src="../assets/reais/obra_osieliane.jpg" alt="Letreiro Osieliane Fotografia">
+      <img src="../assets/reais/obra_fast_importados.jpg" alt="Fachada FAST Importados">
+    </div>
+
+    <nav class="links-list" aria-label="Links principais">
+      <a class="link-btn primary" href="https://wa.me/556336022156?text=Ol%C3%A1!%20Vim%20pelo%20link%20da%20bio%20e%20quero%20um%20or%C3%A7amento%20de%20Fachada%20em%20ACM%20ou%20Letra%20Caixa." target="_blank" rel="noopener">
+        <div class="link-copy">
+          <span class="link-title">Orçamento de Fachadas ACM &amp; Letras Caixa</span>
+          <span class="link-sub">Atendimento direto no WhatsApp • (63) 3602-2156</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a class="link-btn" href="https://wa.me/556336022156?text=Ol%C3%A1!%20Vim%20pelo%20link%20da%20bio%20e%20gostaria%20de%20fazer%20um%20pedido%20na%20Gr%C3%A1fica%20Real%20Express." target="_blank" rel="noopener">
+        <div class="link-copy">
+          <span class="link-title">Gráfica Rápida, Brindes, Laser &amp; 3D</span>
+          <span class="link-sub">Troféus, acrílico, MDF, copos térmicos e adesivos</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a class="link-btn" href="../">
+        <div class="link-copy">
+          <span class="link-title">Site Oficial &amp; Portfólio de Obras Reais</span>
+          <span class="link-sub">Conheça projetos entregues e envie seu briefing</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a class="link-btn" href="https://www.instagram.com/real_fachadasacm/" target="_blank" rel="noopener">
+        <div class="link-copy">
+          <span class="link-title">Instagram Real Fachadas ACM</span>
+          <span class="link-sub">@real_fachadasacm</span>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a class="link-btn" href="https://www.instagram.com/graficarealpso/" target="_blank" rel="noopener">
+        <div class="link-copy">
+          <span class="link-title">Instagram Gráfica Real Express</span>
+          <span class="link-sub">@graficarealpso</span>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a class="link-btn" href="https://maps.google.com/?q=Rua+13+de+Maio,+581,+Paraiso+do+Tocantins,+TO" target="_blank" rel="noopener">
+        <div class="link-copy">
+          <span class="link-title">Como Chegar na Loja</span>
+          <span class="link-sub">Rua 13 de Maio, nº 581 — Centro, Paraíso do Tocantins</span>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+    </nav>
+
+    <footer class="address-box">
+      <strong>Rua 13 de Maio, nº 581 — Centro</strong>
+      <span>Paraíso do Tocantins - TO • (63) 3602-2156</span>
+    </footer>
+  </main>
+</body>
+</html>
