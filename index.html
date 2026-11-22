@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráfica Real Express &amp; Real Fachadas ACM — Paraíso do Tocantins</title>
+  <meta name="description" content="Fachadas em ACM, Letras Caixa em LED, Totens, Envelopamento de Frotas e Gráfica Rápida de alta definição em Paraíso do Tocantins - TO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="hero-3d-canvas" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#inicio" class="brand">
+        <div class="brand-mark">R</div>
+        <div class="brand-text">
+          <strong>Real Fachadas ACM</strong>
+          <span>&amp; Gráfica Real Express</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#divisoes">Soluções</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#processo">Processo</a>
+        <a href="#simulador">Orçamento</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <a class="btn btn-gold header-cta" href="https://wa.me/556336022156?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+        Solicitar Orçamento
+      </a>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO 3D INTERATIVO -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Paraíso do Tocantins &amp; Região
+          </div>
+          <h1>Sua marca em <span class="accent">alto padrão</span> arquitetônico e gráfico.</h1>
+          <p class="hero-lead">
+            Projetamos e executamos <strong>fachadas comerciais em ACM</strong>, letras caixa em LED, totens e comunicação visual completa — com corte CNC de precisão e gráfica rápida de alta definição.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="#simulador">Simular meu Projeto</a>
+            <a class="btn btn-outline" href="#portfolio">Ver Acabamento</a>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric">
+              <strong>+10 anos</strong>
+              <span>Durabilidade do ACM</span>
+            </div>
+            <div class="metric">
+              <strong>CNC &amp; HD</strong>
+              <span>Precisão milimétrica</span>
+            </div>
+            <div class="metric">
+              <strong>100%</strong>
+              <span>Projeto à instalação</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAQUETE 3D INTERATIVA EM TEMPO REAL -->
+        <div class="stage-panel">
+          <div class="stage-viewport" id="stage-viewport">
+            <canvas id="facade-canvas"></canvas>
+            <div class="stage-badge">Maquete 3D Interativa • ACM + LED</div>
+            <div class="stage-hint">Arraste para girar em 3D</div>
+          </div>
+          <div class="stage-controls">
+            <div class="control-group">
+              <label>Cor do Painel ACM</label>
+              <div class="swatches" id="acm-swatches">
+                <button class="swatch active" data-acm="#0b2545" data-metal="0.72" title="Azul Real Metálico" style="background:#0b2545"></button>
+                <button class="swatch" data-acm="#161b22" data-metal="0.55" title="Preto Grafite Fosco" style="background:#161b22"></button>
+                <button class="swatch" data-acm="#8f9fb3" data-metal="0.88" title="Aço Escovado" style="background:linear-gradient(135deg,#cbd5e1,#64748b)"></button>
+                <button class="swatch" data-acm="#4a3822" data-metal="0.78" title="Bronze Arquitetônico" style="background:#6d512d"></button>
+              </div>
+            </div>
+            <div class="control-group">
+              <label>Iluminação LED</label>
+              <div class="swatches" id="led-swatches">
+                <button class="swatch active" data-led="#f5c451" title="LED Ouro Quente" style="background:#f5c451"></button>
+                <button class="swatch" data-led="#e2f1ff" title="LED Branco Frio" style="background:#e2f1ff"></button>
+                <button class="swatch" data-led="#38bdf8" title="LED Azul Tech" style="background:#38bdf8"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DUAS DIVISÕES -->
+    <section id="divisoes">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Estrutura Completa</div>
+          <h2>Duas frentes especializadas, o mesmo rigor no acabamento.</h2>
+          <p>Da fachada imponente que valoriza seu ponto comercial até os impressos rápidos do dia a dia da sua operação.</p>
+        </div>
+
+        <div class="divisions-grid">
+          <article class="tilt-card" data-tilt>
+            <span class="card-tag">Divisão 01 • Arquitetura Comercial</span>
+            <h3>Real Fachadas ACM</h3>
+            <p>Transformamos a fachada da sua loja, clínica, escritório ou empresa com revestimento em Alumínio Composto (ACM), estrutura reforçada e iluminação cênica.</p>
+            <ul class="feature-list">
+              <li>Fachadas completas em ACM com frisos e dobras em CNC</li>
+              <li>Letras caixa em aço inox, galvanizado ou acrílico com LED</li>
+              <li>Totens luminosos e pórticos comerciais de alta visibilidade</li>
+              <li>Acabamento resistente ao sol intenso e chuvas do Tocantins</li>
+            </ul>
+          </article>
+
+          <article class="tilt-card" data-tilt>
+            <span class="card-tag">Divisão 02 • Impressão &amp; Comunicação</span>
+            <h3>Gráfica Real Express</h3>
+            <p>Agilidade de entrega com fidelidade de cor e impressão fotográfica de grande formato para campanhas, frotas e sinalização interna.</p>
+            <ul class="feature-list">
+              <li>Plotagem e envelopamento de frotas e veículos comerciais</li>
+              <li>Adesivos em vinil, perfurados para vitrines e recorte eletrônico</li>
+              <li>Banners, lonas frontlight/backlight e placas em PVC/PS</li>
+              <li>Materiais publicitários e papelaria corporativa expressa</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFÓLIO -->
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Padrão de Entrega</div>
+          <h2>Acabamento pensado para destacar sua empresa dia e noite.</h2>
+          <p>Tecnologia de corte, impressão de alta definição e instalação limpa em cada projeto.</p>
+        </div>
+
+        <div class="portfolio-grid">
+          <article class="work-card" data-tilt>
+            <div class="work-media">
+              <img src="assets/fachada_acm_noturna.jpg" alt="Fachada comercial em ACM com iluminação LED" loading="lazy">
+            </div>
+            <div class="work-body">
+              <span>Real Fachadas ACM</span>
+              <h3>Fachadas Comerciais &amp; Iluminação LED</h3>
+              <p>Revestimento geométrico em ACM com fitas de LED indiretas e letras em alto relevo para máxima presença noturna.</p>
+            </div>
+          </article>
+
+          <article class="work-card" data-tilt>
+            <div class="work-media">
+              <img src="assets/router_cnc_acm.jpg" alt="Corte de precisão em router CNC para ACM" loading="lazy">
+            </div>
+            <div class="work-body">
+              <span>Engenharia &amp; Precisão</span>
+              <h3>Usinagem e Corte CNC em ACM</h3>
+              <p>Dobras limpas, encaixes exatos e acabamento sem emendas aparentes para máxima durabilidade estrutural.</p>
+            </div>
+          </article>
+
+          <article class="work-card" data-tilt>
+            <div class="work-media">
+              <img src="assets/grafica_plotter_hd.jpg" alt="Impressão de grande formato em plotter HD" loading="lazy">
+            </div>
+            <div class="work-body">
+              <span>Gráfica Real Express</span>
+              <h3>Impressão Digital de Grande Formato</h3>
+              <p>Cores vivas, alta definição e resistência UV para adesivos, painéis, vitrines e comunicação promocional.</p>
+            </div>
+          </article>
+
+          <article class="work-card" data-tilt>
+            <div class="work-media">
+              <img src="assets/totem_envelopamento.jpg" alt="Totem em ACM e envelopamento de frota comercial" loading="lazy">
+            </div>
+            <div class="work-body">
+              <span>Sinalização &amp; Frotas</span>
+              <h3>Totens Corporativos &amp; Envelopamento</h3>
+              <p>Identidade visual consistente da entrada da empresa aos veículos que circulam pela cidade todos os dias.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESSO -->
+    <section id="processo">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Como Trabalhamos</div>
+          <h2>Do projeto 3D à inauguração da sua fachada.</h2>
+        </div>
+
+        <div class="process-grid">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <h4>Medição &amp; Diagnóstico</h4>
+            <p>Avaliamos o ponto comercial, iluminação natural e visibilidade da rua para indicar o melhor formato.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <h4>Simulação Visual</h4>
+            <p>Você visualiza como a fachada ou material vai ficar aplicado antes mesmo da produção começar.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <h4>Produção Própria</h4>
+            <p>Corte CNC, montagem estrutural e impressão de alta definição feitos com rigor técnico na nossa sede.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">04</div>
+            <h4>Instalação Segura</h4>
+            <p>Equipe especializada para entregar sua obra limpa, alinhada e pronta para atrair clientes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULADOR DE ORÇAMENTO -->
+    <section id="simulador">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Orçamento Rápido</div>
+          <h2>Monte seu briefing e envie direto no WhatsApp.</h2>
+          <p>Selecione o serviço e as medidas aproximadas para receber atendimento prioritário da nossa equipe.</p>
+        </div>
+
+        <div class="estimator-wrap">
+          <form class="form-grid" id="quote-form">
+            <div class="field full">
+              <label for="q-nome">Seu Nome ou Empresa</label>
+              <input id="q-nome" type="text" placeholder="Ex: Clínica Exemplo / João Silva" required>
+            </div>
+
+            <div class="field">
+              <label for="q-servico">Serviço Desejado</label>
+              <select id="q-servico">
+                <option value="Fachada em ACM + Letras Caixa LED">Fachada em ACM + Letras Caixa LED</option>
+                <option value="Fachada em ACM (Revestimento)">Fachada em ACM (Revestimento)</option>
+                <option value="Letras Caixa em Alto Relevo">Letras Caixa em Alto Relevo</option>
+                <option value="Totem ou Pórtico Comercial">Totem ou Pórtico Comercial</option>
+                <option value="Envelopamento de Frota / Veículo">Envelopamento de Frota / Veículo</option>
+                <option value="Gráfica Rápida (Banners, Lonas, Adesivos)">Gráfica Rápida (Banners, Lonas, Adesivos)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="q-acabamento">Acabamento Preferido</label>
+              <select id="q-acabamento">
+                <option value="ACM + Iluminação LED">ACM + Iluminação LED</option>
+                <option value="ACM Fosco / Metálico">ACM Fosco / Metálico</option>
+                <option value="Aço Escovado / Acrílico">Aço Escovado / Acrílico</option>
+                <option value="Impressão Digital HD">Impressão Digital HD</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="q-largura">Largura aprox. (metros)</label>
+              <input id="q-largura" type="number" step="0.5" min="1" value="6">
+            </div>
+
+            <div class="field">
+              <label for="q-altura">Altura aprox. (metros)</label>
+              <input id="q-altura" type="number" step="0.5" min="0.5" value="2.5">
+            </div>
+
+            <div class="field full">
+              <label for="q-cidade">Cidade da Obra / Entrega</label>
+              <input id="q-cidade" type="text" value="Paraíso do Tocantins - TO">
+            </div>
+
+            <div class="field full">
+              <button type="submit" class="btn btn-gold" style="width:100%">
+                Enviar Briefing no WhatsApp →
+              </button>
+            </div>
+          </form>
+
+          <div class="estimator-summary">
+            <div class="summary-box">
+              <span class="card-tag">Resumo em Tempo Real</span>
+              <h3>Seu Projeto</h3>
+              <ul class="summary-list" id="summary-list">
+                <li>Serviço: <strong id="sum-servico">Fachada em ACM + Letras Caixa LED</strong></li>
+                <li>Acabamento: <strong id="sum-acabamento">ACM + Iluminação LED</strong></li>
+                <li>Área estimada: <strong id="sum-area">15,0 m²</strong></li>
+                <li>Localidade: <strong id="sum-cidade">Paraíso do Tocantins - TO</strong></li>
+              </ul>
+            </div>
+            <p style="font-size:0.86rem; color:var(--muted);">
+              * Nossa equipe técnica analisa as medidas, a estrutura existente e o layout da sua marca para montar sua proposta personalizada no WhatsApp.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Onde Estamos</div>
+          <h2>Visite a Gráfica Real Express em Paraíso do Tocantins.</h2>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div>
+              <div class="contact-item">
+                <span>Endereço</span>
+                <strong>Rua 13 de Maio, nº 581 — Setor Oeste / Centro<br>Paraíso do Tocantins - TO, CEP 77545-172</strong>
+              </div>
+              <div class="contact-item">
+                <span>Telefone &amp; WhatsApp</span>
+                <strong>(63) 3602-2156</strong>
+              </div>
+              <div class="contact-item">
+                <span>Atendimento</span>
+                <strong>Segunda a Sexta • Horário Comercial</strong>
+              </div>
+            </div>
+
+            <a class="btn btn-gold" href="https://wa.me/556336022156?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe%20da%20Gr%C3%A1fica%20Real%20Express%20e%20Real%20Fachadas%20ACM." target="_blank" rel="noopener">
+              Chamar no WhatsApp (63) 3602-2156
+            </a>
+          </div>
+
+          <div class="map-frame">
+            <iframe
+              title="Mapa Gráfica Real Express Paraíso do Tocantins"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Rua+13+de+Maio,+581,+Paraiso+do+Tocantins,+TO&output=embed">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>Gráfica Real Express &amp; Real Fachadas ACM</strong> · CNPJ 36.451.770/0001-06
+      </div>
+      <div>
+        Rua 13 de Maio, 581 — Paraíso do Tocantins - TO · (63) 3602-2156
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/556336022156?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20fachada%20ou%20gr%C3%A1fica." target="_blank" rel="noopener">
+    <span>WhatsApp</span>
+  </a>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
