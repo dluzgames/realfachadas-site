@@ -7,249 +7,267 @@
   <meta name="description" content="Fachadas comerciais em ACM, letras caixa iluminadas em LED, totens, envelopamento de frotas e gráfica rápida de alta definição em Paraíso do Tocantins - TO.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="sites-incriveis.css">
   <link rel="stylesheet" href="styles.css">
   <script src="sites-incriveis.js" defer></script>
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" id="topbar">
     <div class="wrap topbar-inner">
       <a href="#inicio" class="brand">
-        <div class="brand-monogram">R</div>
-        <div class="brand-label">
-          <strong>Real Fachadas ACM</strong>
-          <span>&amp; Gráfica Real Express</span>
-        </div>
+        <strong>Real Fachadas</strong>
+        <span>ACM &amp; Gráfica Express</span>
       </a>
 
       <nav class="nav">
-        <a href="#divisoes">Soluções</a>
-        <a href="#montagem">Engenharia 3D</a>
-        <a href="#portfolio">Portfólio</a>
-        <a href="#briefing">Orçamento</a>
+        <a href="#divisoes">Divisões</a>
+        <a href="#engenharia">Acabamento</a>
+        <a href="#chapas">Chapas ACM</a>
+        <a href="#obras">Portfólio</a>
+        <a href="#briefing">Projeto</a>
       </nav>
 
-      <a class="btn btn-accent" href="https://wa.me/556336022156?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener">
-        Falar no WhatsApp
+      <a class="btn btn-accent" href="https://wa.me/556336022156?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Real%20Fachadas%20ACM%20e%20Gr%C3%A1fica%20Real%20Express." target="_blank" rel="noopener">
+        WhatsApp Direto
       </a>
     </div>
   </header>
 
   <main>
-    <!-- CENA 1: ABERTURA EDITORIAL + MAQUETE 3D INTERATIVA COM BLOOM REAL -->
+    <!-- CENA 1: HERO FULL-BLEED CINEMATOGRÁFICO COM SHADER WEBGL 3D -->
     <section class="scene-hero" id="inicio">
-      <div class="wrap hero-layout">
+      <canvas id="hero-webgl" aria-hidden="true"></canvas>
+      <div class="hero-scrim" aria-hidden="true"></div>
+
+      <div class="hero-content">
         <div>
-          <span class="kicker">Paraíso do Tocantins &amp; Vale do Araguaia</span>
-          <h1 class="hero-title" data-fx="palavras">Fachadas em <em>ACM</em> e gráfica de precisão.</h1>
-          <p class="hero-lead" data-fx="surgir" data-fx-atraso="220">
-            Projetamos, fresamos em router CNC e instalamos fachadas comerciais em Alumínio Composto, letras caixa iluminadas em LED, totens e comunicação visual completa.
+          <span class="eyebrow">Paraíso do Tocantins &amp; Vale do Araguaia</span>
+          <h1 class="hero-title">
+            Arquitetura em <span class="hero-serif">ACM</span> &amp; gráfica de precisão.
+          </h1>
+          <p class="hero-lead">
+            Projetamos, fresamos em router CNC e instalamos fachadas comerciais em Alumínio Composto, letras caixa iluminadas em LED e comunicação visual de alto padrão.
           </p>
-          <div class="hero-cta-row" data-fx="subir" data-fx-atraso="300">
-            <a class="btn btn-accent" href="#briefing">Enviar Briefing do Projeto</a>
-            <a class="btn btn-ghost" href="#montagem">Ver Montagem 3D</a>
-          </div>
-          <div class="hero-facts" data-fx="surgir" data-fx-atraso="380">
-            <div class="fact">
-              <strong>+<span data-fx="contar" data-fx-fim="10">0</span> anos</strong>
-              <span>Durabilidade do ACM</span>
-            </div>
-            <div class="fact">
-              <strong>CNC &amp; HD</strong>
-              <span>Produção própria</span>
-            </div>
-            <div class="fact">
-              <strong><span data-fx="contar" data-fx-fim="100" data-fx-sufixo="%">0</span></strong>
-              <span>Do projeto à obra</span>
-            </div>
+          <div class="hero-actions">
+            <a class="btn btn-accent" href="#briefing">Iniciar Briefing Técnico</a>
+            <a class="btn btn-line" href="#engenharia">Explorar Acabamento</a>
           </div>
         </div>
 
-        <div class="hero-stage" data-fx="crescer" data-fx-atraso="160">
-          <div class="stage-box" id="hero-stage-box">
-            <canvas id="hero-facade-canvas"></canvas>
-            <div class="stage-tag">Maquete 3D Interativa • ACM + LED</div>
-            <div class="stage-drag">Arraste para girar em 3D</div>
+        <div class="hero-meta">
+          <div class="meta-item">
+            <strong>+<span data-fx="contar" data-fx-fim="10">10</span> anos</strong>
+            <span>Durabilidade do ACM</span>
           </div>
-          <div class="stage-bar">
-            <div>
-              <span class="ctrl-label">Acabamento do ACM</span>
-              <div class="swatches" id="acm-swatches">
-                <button class="swatch active" data-acm="#0b2545" data-metal="0.78" title="Azul Real Metálico" style="background:#0b2545"></button>
-                <button class="swatch" data-acm="#141922" data-metal="0.58" title="Preto Grafite" style="background:#141922"></button>
-                <button class="swatch" data-acm="#9aa9bc" data-metal="0.90" title="Aço Escovado" style="background:#9aa9bc"></button>
-                <button class="swatch" data-acm="#5e4628" data-metal="0.80" title="Bronze Arquitetônico" style="background:#5e4628"></button>
-              </div>
-            </div>
-            <div>
-              <span class="ctrl-label">Iluminação LED</span>
-              <div class="swatches" id="led-swatches">
-                <button class="swatch active" data-led="#f5c451" title="LED Ouro Quente" style="background:#f5c451"></button>
-                <button class="swatch" data-led="#e2f1ff" title="LED Branco Frio" style="background:#e2f1ff"></button>
-                <button class="swatch" data-led="#38bdf8" title="LED Azul Tech" style="background:#38bdf8"></button>
-              </div>
-            </div>
+          <div class="meta-item">
+            <strong>CNC &amp; HD</strong>
+            <span>Usinagem e Impressão Próprias</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CENA 2: CONTRASTE MINERAL CLARO — DUAS DIVISÕES -->
-    <section class="scene-mineral" id="divisoes">
-      <div class="wrap mineral-grid">
-        <div class="mineral-intro" data-fx="esquerda">
-          <span class="kicker">Estrutura Integrada</span>
-          <h2>Duas divisões, um único padrão de entrega.</h2>
-          <p>Quem já trabalha com comunicação visual sabe: o detalhe do corte, da dobra e da fidelidade de cor é o que separa uma fachada comum de uma marca memorável.</p>
+    <!-- CENA 2: CONTRASTE MINERAL CLARO — ESTÚDIO & DUAS DIVISÕES -->
+    <section class="scene-studio" id="divisoes">
+      <div class="wrap">
+        <div class="studio-top">
+          <div data-fx="esquerda">
+            <span class="eyebrow">Duas Divisões Especializadas</span>
+            <h2>Da fachada monumental ao impresso de alta definição.</h2>
+          </div>
+          <p data-fx="direita">
+            Para quem entende de design e acabamento, cada friso de alumínio, cada dobra CNC e cada tom de cor impresso comunicam o valor real da empresa antes mesmo do cliente abrir a porta.
+          </p>
         </div>
 
-        <div class="divisions-stack">
-          <article class="division-block" data-fx="direita">
-            <span class="kicker">Real Fachadas ACM</span>
-            <h3>Arquitetura Comercial &amp; Luminosos</h3>
-            <p>Revestimento completo para lojas, clínicas, escritórios e empresas que exigem presença imponente dia e noite sob o clima do Tocantins.</p>
-            <ul class="spec-list">
-              <li>Painéis ACM dobrados em CNC</li>
-              <li>Letras caixa com LED embutido</li>
-              <li>Totens e pórticos estruturais</li>
-              <li>Estrutura metálica reforçada</li>
-            </ul>
+        <div class="divisions-editorial">
+          <article class="div-card" data-fx="subir">
+            <div class="div-card-media">
+              <img src="assets/fachada_acm_noturna.jpg" alt="Fachada comercial moderna em ACM e LED" loading="lazy">
+            </div>
+            <div class="div-card-body">
+              <span class="eyebrow">01 • Real Fachadas ACM</span>
+              <h3>Fachadas Comerciais &amp; Luminosos</h3>
+              <p>Revestimento arquitetônico em Alumínio Composto com estrutura metálica reforçada e iluminação cênica projetada para o clima do Tocantins.</p>
+              <ul class="div-specs">
+                <li>Painéis ACM com dobra CNC</li>
+                <li>Letras caixa com LED IP67</li>
+                <li>Totens e pórticos comerciais</li>
+                <li>Instalação técnica completa</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="division-block" data-fx="direita" data-fx-atraso="140">
-            <span class="kicker">Gráfica Real Express</span>
-            <h3>Grande Formato &amp; Gráfica Rápida</h3>
-            <p>Impressão digital de alta definição com agilidade operacional para campanhas, vitrines, frotas e sinalização corporativa.</p>
-            <ul class="spec-list">
-              <li>Envelopamento de frotas</li>
-              <li>Adesivos, vinil e perfurados</li>
-              <li>Banners, lonas e placas PVC/PS</li>
-              <li>Materiais publicitários expressos</li>
-            </ul>
+          <article class="div-card" data-fx="subir" data-fx-atraso="140">
+            <div class="div-card-media">
+              <img src="assets/grafica_plotter_hd.jpg" alt="Impressão digital de grande formato HD" loading="lazy">
+            </div>
+            <div class="div-card-body">
+              <span class="eyebrow">02 • Gráfica Real Express</span>
+              <h3>Grande Formato &amp; Gráfica Rápida</h3>
+              <p>Impressão fotográfica em plotter industrial com fidelidade cromática e entrega ágil para vitrines, frotas e sinalização corporativa.</p>
+              <ul class="div-specs">
+                <li>Envelopamento de frotas</li>
+                <li>Adesivos vinil e perfurados</li>
+                <li>Banners, lonas e placas PVC</li>
+                <li>Impressos corporativos</li>
+              </ul>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- CENA 3: O PICO — MOVIMENTO-ASSINATURA: MONTAGEM 3D DA FACHADA NO SCROLL -->
-    <section class="scene-peak" id="montagem" data-fx-fixa data-fx-altura="4" data-fx-etapas="3">
+    <!-- CENA 3: O PICO — REVELAÇÃO ARQUITETÔNICA EM TELA CHEIA NO SCROLL -->
+    <section class="scene-peak" id="engenharia" data-fx-fixa data-fx-altura="4" data-fx-etapas="3">
       <div class="fx-palco">
-        <div class="peak-canvas-wrap">
-          <canvas id="scroll-assembly-canvas"></canvas>
-          <div class="stage-tag">Montagem 3D em Tempo Real</div>
-          <div class="peak-progress-bar">
-            <div class="peak-progress-fill"></div>
-          </div>
+        <div class="peak-stage-bg">
+          <img class="peak-layer peak-layer-base" src="assets/acm_detalhe_acabamento.jpg" alt="Detalhe macro de acabamento em ACM e LED">
+          <img class="peak-layer peak-layer-top" src="assets/fachada_acm_noturna.jpg" alt="Fachada completa em ACM instalada e iluminada">
+          <div class="peak-divider-line" aria-hidden="true"></div>
+          <div class="peak-scrim" aria-hidden="true"></div>
         </div>
 
-        <div class="peak-story">
-          <div class="fx-etapa">
-            <span class="peak-step-num">Etapa 1 de 3 — Estrutura &amp; CNC</span>
-            <h2>Base metálica e fresagem milimétrica.</h2>
-            <p>Cada placa de ACM é usinada e dobrada em router CNC para garantir frisos retos, cantos fechados e resistência estrutural contra sol e chuva.</p>
+        <div class="peak-overlay">
+          <div class="peak-stages-box">
+            <div class="fx-etapa">
+              <span class="eyebrow">Engenharia 01 / 03</span>
+              <h2>O detalhe do chanfro define a obra inteira.</h2>
+              <p>Usinagem em router CNC garante frisos paralelos, dobras fechadas sem fissuras e alinhamento geométrico de padrão arquitetônico.</p>
+            </div>
+            <div class="fx-etapa">
+              <span class="eyebrow">Engenharia 02 / 03</span>
+              <h2>Alumínio composto feito para o sol do Tocantins.</h2>
+              <p>Ao contrário da lona convencional que desbota e rasga, o ACM mantém cor, brilho e proteção térmica por mais de uma década.</p>
+            </div>
+            <div class="fx-etapa">
+              <span class="eyebrow">Engenharia 03 / 03</span>
+              <h2>Presença noturna que domina a avenida.</h2>
+              <p>Iluminação indireta em LED e letras caixa em relevo transformam o seu ponto comercial em referência instantânea na cidade.</p>
+            </div>
           </div>
-          <div class="fx-etapa">
-            <span class="peak-step-num">Etapa 2 de 3 — Revestimento em ACM</span>
-            <h2>Painéis modulares que valorizam o imóvel.</h2>
-            <p>O revestimento em Alumínio Composto cria um plano arquitetônico limpo, com conforto térmico e vida útil superior a dez anos.</p>
-          </div>
-          <div class="fx-etapa">
-            <span class="peak-step-num">Etapa 3 de 3 — Letras Caixa &amp; LED</span>
-            <h2>Presença absoluta dia e noite.</h2>
-            <p>Letras em alto relevo e iluminação linear em LED transformam a fachada no principal ponto de atração da avenida.</p>
+
+          <div class="peak-readout">
+            <div class="peak-pill-row">
+              <span class="peak-spec">ACM 3mm / 4mm</span>
+              <span class="peak-spec">Corte CNC</span>
+              <span class="peak-spec">LED Blindado IP67</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CENA 4: TRILHO HORIZONTAL DE PORTFÓLIO -->
-    <section class="scene-rail" id="portfolio" data-fx-fixa data-fx-altura="3">
+    <!-- CENA 4: MOSTRUÁRIO TÁTIL 3D DE CHAPAS DE ACM (BRILHO METÁLICO AO MOUSE) -->
+    <section class="scene-materials" id="chapas">
+      <div class="wrap">
+        <div class="materials-head">
+          <div data-fx="esquerda">
+            <span class="eyebrow">Mostruário Interativo 3D</span>
+            <h2>Sinta o reflexo de cada chapa de ACM.</h2>
+          </div>
+          <p data-fx="direita">
+            Passe o cursor sobre as amostras para observar o comportamento da luz em cada acabamento metálico disponível na nossa sede.
+          </p>
+        </div>
+
+        <div class="plates-grid">
+          <article class="acm-plate plate-blue" data-plate>
+            <span class="plate-code">ACM-01 • Metálico</span>
+            <div class="plate-info">
+              <h3>Azul Real Profundo</h3>
+              <span>Autoridade corporativa e alto contraste com LED quente.</span>
+            </div>
+          </article>
+
+          <article class="acm-plate plate-graphite" data-plate>
+            <span class="plate-code">ACM-02 • Fosco</span>
+            <div class="plate-info">
+              <h3>Preto Grafite</h3>
+              <span>Acabamento arquitetônico minimalista de alto padrão.</span>
+            </div>
+          </article>
+
+          <article class="acm-plate plate-steel" data-plate>
+            <span class="plate-code">ACM-03 • Escovado</span>
+            <div class="plate-info">
+              <h3>Aço Escovado</h3>
+              <span>Textura metálica linear para marquises e letras caixa.</span>
+            </div>
+          </article>
+
+          <article class="acm-plate plate-bronze" data-plate>
+            <span class="plate-code">ACM-04 • Nobre</span>
+            <div class="plate-info">
+              <h3>Bronze Champagne</h3>
+              <span>Sofisticação quente para clínicas, escritórios e boutiques.</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CENA 5: TRILHO HORIZONTAL DE PORTFÓLIO -->
+    <section class="scene-rail" id="obras" data-fx-fixa data-fx-altura="3">
       <div class="fx-palco">
         <div class="rail-head">
-          <div>
-            <span class="kicker">Portfólio &amp; Acabamento</span>
-            <h2>Precisão visível em cada detalhe.</h2>
-          </div>
+          <span class="eyebrow">Portfólio &amp; Produção</span>
+          <h2>Estrutura própria do projeto à instalação.</h2>
         </div>
 
         <div class="rail-track" data-fx="trilho">
-          <article class="rail-card">
-            <img src="assets/fachada_acm_noturna.jpg" alt="Fachada comercial em ACM com iluminação LED" loading="lazy">
-            <div class="rail-card-body">
-              <span>Real Fachadas ACM</span>
-              <h3>Fachadas Comerciais &amp; LED</h3>
-              <p>Painéis em ACM com frisos geométricos e iluminação indireta de alto impacto noturno.</p>
+          <article class="rail-item">
+            <div class="rail-img">
+              <img src="assets/fachada_acm_noturna.jpg" alt="Fachada em ACM iluminada" loading="lazy">
+            </div>
+            <div class="rail-caption">
+              <h3>Fachadas Comerciais ACM + LED</h3>
+              <span>01 • Fachadas</span>
             </div>
           </article>
 
-          <article class="rail-card">
-            <img src="assets/router_cnc_acm.jpg" alt="Usinagem em router CNC de chapa de ACM" loading="lazy">
-            <div class="rail-card-body">
-              <span>Engenharia Própria</span>
-              <h3>Corte e Dobra em Router CNC</h3>
-              <p>Acabamento industrial com encaixes precisos e sem emendas aparentes.</p>
+          <article class="rail-item">
+            <div class="rail-img">
+              <img src="assets/router_cnc_acm.jpg" alt="Corte CNC industrial em chapa de ACM" loading="lazy">
+            </div>
+            <div class="rail-caption">
+              <h3>Usinagem de Precisão em Router CNC</h3>
+              <span>02 • Engenharia</span>
             </div>
           </article>
 
-          <article class="rail-card">
-            <img src="assets/grafica_plotter_hd.jpg" alt="Impressão de grande formato em plotter HD" loading="lazy">
-            <div class="rail-card-body">
-              <span>Gráfica Real Express</span>
-              <h3>Impressão Digital Grande Formato</h3>
-              <p>Fidelidade de cores e definição fotográfica para vitrines, painéis e banners.</p>
+          <article class="rail-item">
+            <div class="rail-img">
+              <img src="assets/grafica_plotter_hd.jpg" alt="Plotter industrial de grande formato" loading="lazy">
+            </div>
+            <div class="rail-caption">
+              <h3>Impressão Digital Grande Formato HD</h3>
+              <span>03 • Gráfica</span>
             </div>
           </article>
 
-          <article class="rail-card">
-            <img src="assets/totem_envelopamento.jpg" alt="Totem em ACM e envelopamento de frota comercial" loading="lazy">
-            <div class="rail-card-body">
-              <span>Sinalização &amp; Frotas</span>
-              <h3>Totens &amp; Envelopamento</h3>
-              <p>Identidade visual consistente na entrada da empresa e nos veículos em circulação.</p>
+          <article class="rail-item">
+            <div class="rail-img">
+              <img src="assets/totem_envelopamento.jpg" alt="Totem comercial e envelopamento de frota" loading="lazy">
+            </div>
+            <div class="rail-caption">
+              <h3>Totens Corporativos &amp; Envelopamento</h3>
+              <span>04 • Sinalização</span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- CENA 5: PROCESSO TÉCNICO -->
-    <section class="scene-process">
-      <div class="wrap">
-        <div class="process-head" data-fx="subir">
-          <span class="kicker">Fluxo de Obra</span>
-          <h2>Do primeiro levantamento à entrega instalada.</h2>
-        </div>
-
-        <div class="process-row">
-          <div class="process-item" data-fx="subir" data-fx-atraso="0">
-            <strong>Medição técnica</strong>
-            <p>Avaliamos estrutura, incidência solar e ângulo de leitura da rua no ponto comercial.</p>
-          </div>
-          <div class="process-item" data-fx="subir" data-fx-atraso="100">
-            <strong>Visualização prévia</strong>
-            <p>Você valida proporções, cores do ACM e iluminação antes da produção iniciar.</p>
-          </div>
-          <div class="process-item" data-fx="subir" data-fx-atraso="200">
-            <strong>Produção própria</strong>
-            <p>Usinagem CNC, solda estrutural e impressão HD executadas na nossa sede em Paraíso.</p>
-          </div>
-          <div class="process-item" data-fx="subir" data-fx-atraso="300">
-            <strong>Instalação limpa</strong>
-            <p>Montagem alinhada, fiação protegida e entrega pronta para receber seus clientes.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CENA 6: FECHAMENTO RESOLVIDO (BRIEFING SEM PREÇO + LOCALIZAÇÃO) -->
+    <!-- CENA 6: FECHAMENTO RESOLVIDO (BRIEFING TÉCNICO SEM PREÇO + MAPA) -->
     <section class="scene-close" id="briefing">
       <div class="wrap close-grid">
         <div>
           <div class="close-head">
-            <span class="kicker">Atendimento Direto</span>
-            <h2>Envie o briefing da sua fachada ou demanda gráfica.</h2>
-            <p>Informe o tipo de serviço e as medidas aproximadas. A mensagem já sai organizada direto para o nosso WhatsApp técnico.</p>
+            <span class="eyebrow">Atendimento Técnico</span>
+            <h2>Envie o briefing da sua obra ou demanda gráfica.</h2>
+            <p>Escolha o serviço, o acabamento e as medidas aproximadas. Sua solicitação vai pronta e organizada direto para o nosso WhatsApp.</p>
           </div>
 
           <form class="brief-form" id="brief-form">
@@ -271,9 +289,10 @@
             <div class="field">
               <label for="b-acabamento">Acabamento</label>
               <select id="b-acabamento">
-                <option value="ACM + Iluminação LED">ACM + Iluminação LED</option>
-                <option value="ACM Metálico / Fosco">ACM Metálico / Fosco</option>
-                <option value="Aço Escovado / Acrílico">Aço Escovado / Acrílico</option>
+                <option value="ACM Azul Real + LED">ACM Azul Real + LED</option>
+                <option value="ACM Preto Grafite + LED">ACM Preto Grafite + LED</option>
+                <option value="ACM Aço Escovado">ACM Aço Escovado</option>
+                <option value="ACM Bronze Champagne">ACM Bronze Champagne</option>
                 <option value="Impressão Digital HD">Impressão Digital HD</option>
               </select>
             </div>
@@ -295,20 +314,20 @@
               </button>
             </div>
           </form>
-          <p class="brief-note" id="brief-area-note">Área aproximada informada: 15,0 m² — proposta técnica personalizada via WhatsApp.</p>
+          <p class="brief-note" id="brief-area-note">Área aproximada: 15,0 m² — análise técnica e proposta personalizada via WhatsApp.</p>
         </div>
 
-        <div class="location-panel">
-          <div class="location-card">
-            <div class="loc-row">
+        <div class="loc-stack">
+          <div class="loc-card">
+            <div class="loc-item">
               <span>Endereço Oficial</span>
               <strong>Rua 13 de Maio, nº 581 — Setor Oeste / Centro<br>Paraíso do Tocantins - TO, CEP 77545-172</strong>
             </div>
-            <div class="loc-row">
+            <div class="loc-item">
               <span>Telefone &amp; WhatsApp</span>
               <strong>(63) 3602-2156</strong>
             </div>
-            <div class="loc-row">
+            <div class="loc-item">
               <span>Razão Social</span>
               <strong>Gráfica Real Express Ltda. · CNPJ 36.451.770/0001-06</strong>
             </div>
@@ -328,7 +347,7 @@
   </main>
 
   <footer>
-    <div class="wrap footer-row">
+    <div class="wrap footer-inner">
       <strong>Gráfica Real Express &amp; Real Fachadas ACM</strong>
       <span>Rua 13 de Maio, 581 — Paraíso do Tocantins - TO · (63) 3602-2156</span>
     </div>
@@ -337,8 +356,7 @@
   <script type="importmap">
     {
       "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
       }
     }
   </script>
