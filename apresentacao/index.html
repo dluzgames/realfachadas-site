@@ -455,6 +455,53 @@
     }
     .gmb-item p { font-size: 0.94rem; color: rgba(255, 255, 255, 0.8); }
 
+    /* Tráfego Pago */
+    .ads-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+    .ads-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ads-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-ink);
+    }
+    .ads-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.28rem;
+      color: var(--navy);
+      line-height: 1.15;
+    }
+    .ads-card p {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .ads-highlight {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .ads-highlight strong { color: var(--gold); }
+    .ads-highlight p { font-size: 0.98rem; color: rgba(255, 255, 255, 0.9); max-width: 68ch; }
+
     /* Fluxo Semanal */
     .steps-grid {
       display: grid;
@@ -505,7 +552,7 @@
     }
 
     @media (max-width: 980px) {
-      .hero-grid, .media-showcase, .carousel-layout, .gmb-grid { grid-template-columns: 1fr; }
+      .hero-grid, .media-showcase, .carousel-layout, .gmb-grid, .ads-grid { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .nav { display: none; }
     }
@@ -526,6 +573,7 @@
         <a href="#video">Vídeo Reels</a>
         <a href="#carrossel">Carrossel Gráfica</a>
         <a href="#google">Google Meu Negócio</a>
+        <a href="#trafego">Tráfego Pago</a>
         <a href="#como-funciona">Como Funciona</a>
       </nav>
     </div>
@@ -755,6 +803,41 @@
               <p>Subimos fotos nítidas das obras entregues para aumentar cliques em "Ligar", "Rotas" e "Site", somando força orgânica com os anúncios pagos no Instagram e Facebook.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇO 4: TRÁFEGO PAGO (META ADS + GOOGLE ADS) -->
+    <section class="block white" id="trafego">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Aceleração de Vendas • Tráfego Pago (Meta Ads &amp; Google)</span>
+          <h2>Anúncios levando empresários direto para o WhatsApp de vocês.</h2>
+          <p>Além das postagens orgânicas, rodamos campanhas pagas segmentadas para alcançar quem está abrindo loja, reformando fachada ou precisando de materiais gráficos em Paraíso e região.</p>
+        </div>
+
+        <div class="ads-grid">
+          <article class="ads-card">
+            <span class="ads-tag">Frente 01 • Ticket Alto B2B</span>
+            <h3>Fachadas em ACM &amp; Letras Caixa</h3>
+            <p>Anúncios no Instagram e Facebook focados em empresários, lojistas, clínicas, escritórios e construtoras de Paraíso e cidades vizinhas — levando o interessado direto pro WhatsApp do <strong>Siley</strong> e do <strong>Pedro</strong>.</p>
+          </article>
+
+          <article class="ads-card">
+            <span class="ads-tag">Frente 02 • Giro Diário</span>
+            <h3>Gráfica Real, Laser, Brindes &amp; 3D</h3>
+            <p>Campanhas para empresas, escolas e organizadores de eventos buscando troféus, copos térmicos, carimbos, adesivos e impressão 3D — caindo direto no WhatsApp geral <strong>(63) 3602-2156</strong>.</p>
+          </article>
+
+          <article class="ads-card">
+            <span class="ads-tag">Frente 03 • Intenção de Compra</span>
+            <h3>Presença nas Buscas &amp; Remarketing</h3>
+            <p>Quem visitou o Instagram ou o site de vocês volta a ver as obras reais da Real Fachadas nos próximos dias até chamar para pedir orçamento — sem perder o cliente para a concorrência.</p>
+          </article>
+        </div>
+
+        <div class="ads-highlight">
+          <p><strong>Por que o Tráfego Pago compensa rápido no ramo de vocês?</strong> Em projetos de fachadas em ACM e letras caixa, <strong>uma única obra fechada pelos anúncios</strong> já gera um retorno muito superior ao investimento mensal de divulgação.</p>
         </div>
       </div>
     </section>
