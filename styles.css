@@ -78,44 +78,14 @@ a {
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand-logos {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
-.brand-logos img {
-  width: 36px;
-  height: 36px;
-  border-radius: 7px;
-  object-fit: cover;
-  border: 1.5px solid var(--paper);
-}
-
-.brand-logos img + img {
-  margin-left: -8px;
-}
-
-.brand-names strong {
+.brand-svg {
+  height: 44px;
+  width: auto;
   display: block;
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--navy);
-  line-height: 1.08;
-}
-
-.brand-names span {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--ink-muted);
-  font-weight: 500;
 }
 
 .nav {

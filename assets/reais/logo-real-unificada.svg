@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" fill="none" role="img" aria-label="Gráfica Real Express e Real Fachadas ACM">
+  <!-- Bloco arquitetônico Azul-Marinho Real oficial -->
+  <rect x="0" y="2" width="52" height="52" rx="11" fill="#050A52"/>
+  <!-- Letra R estilizada + triângulo CMYK (Ciano + Magenta + Ouro da marca real) -->
+  <path d="M14 40V16H27.5C32.8 16 36 19 36 23.6C36 27.4 33.8 30.1 29.8 30.9L36.8 40H29.8L23.7 31.4H20V40H14ZM20 26.4H26.8C29 26.4 30.2 25.3 30.2 23.6C30.2 21.9 29 20.9 26.8 20.9H20V26.4Z" fill="#F4A924"/>
+  <!-- Triângulo Ciano & Magenta (assinatura CMYK da Gráfica Real) -->
+  <polygon points="39,14 45,25 33,25" fill="#00B5E2" opacity="0.95"/>
+  <polygon points="41,40 46,31 36,31" fill="#E1257C"/>
+
+  <!-- Wordmark editorial limpo -->
+  <text x="64" y="27" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-weight="800" font-size="18.5" letter-spacing="0.8" fill="#070D2C">GRÁFICA REAL</text>
+  <text x="64" y="45" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.2" fill="#9C6500">FACHADAS ACM • EXPRESS</text>
+</svg>
