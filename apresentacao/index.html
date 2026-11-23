@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apresentação de Serviços — DLuz Digital para Gráfica Real Express &amp; Real Fachadas ACM</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f5f0;
+      --white: #ffffff;
+      --navy: #070d2c;
+      --navy-deep: #05091d;
+      --ink: #0c1228;
+      --muted: #525c70;
+      --gold: #f4a924;
+      --gold-ink: #9c6500;
+      --line: rgba(12, 18, 40, 0.11);
+      --line-dark: rgba(255, 255, 255, 0.14);
+      --green-g: #16a34a;
+      --blue-g: #1a73e8;
+      --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--paper); color: var(--ink); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+    body { overflow-x: clip; line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .wrap { width: min(1240px, 90%); margin-inline: auto; }
+
+    /* Topbar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      background: rgba(247, 245, 240, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      height: 72px;
+      display: flex;
+      align-items: center;
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-bar img { height: 38px; width: auto; }
+    .agency-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: #ece8df;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    .nav {
+      display: flex;
+      gap: 24px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .nav a:hover { color: var(--navy); }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-ink);
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-navy { background: var(--navy); color: var(--white); }
+    .btn-navy:hover { background: #101b52; transform: translateY(-2px); }
+    .btn-outline { background: var(--white); border-color: var(--line); color: var(--navy); }
+    .btn-outline:hover { border-color: var(--navy); transform: translateY(-2px); }
+    .btn-gold { background: var(--gold); color: var(--navy-deep); }
+    .btn-gold:hover { background: #ffbc42; transform: translateY(-2px); }
+
+    /* Hero Apresentação */
+    .hero {
+      padding: 76px 0 68px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.3rem, 4.4vw, 3.9rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold-ink);
+    }
+    .hero p {
+      font-size: 1.04rem;
+      color: var(--muted);
+      max-width: 54ch;
+      margin-bottom: 28px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .cadence-card {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 18px;
+      padding: 32px;
+      display: grid;
+      gap: 20px;
+    }
+    .cadence-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      line-height: 1.15;
+    }
+    .cadence-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+    .cadence-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--line-dark);
+      font-size: 0.92rem;
+    }
+    .cadence-list strong { color: var(--gold); font-family: var(--font-display); }
+
+    section.block { padding: 84px 0; }
+    section.block.white { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    section.block.dark { background: var(--navy-deep); color: var(--white); }
+    section.block.dark .eyebrow { color: var(--gold); }
+
+    .sec-head { max-width: 680px; margin-bottom: 44px; }
+    .sec-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    section.block.dark .sec-head h2 { color: var(--white); }
+    .sec-head p { color: var(--muted); font-size: 1rem; }
+    section.block.dark .sec-head p { color: rgba(255, 255, 255, 0.74); }
+
+    /* Bloco Vídeo Reels + Banner */
+    .media-showcase {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .phone-frame {
+      width: min(340px, 100%);
+      margin-inline: auto;
+      border-radius: 30px;
+      padding: 12px;
+      background: #0c1228;
+      box-shadow: 0 28px 64px rgba(5, 9, 29, 0.28);
+      border: 2px solid rgba(244, 169, 36, 0.35);
+    }
+    .phone-frame video {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: 20px;
+      background: #000;
+      display: block;
+    }
+    .feature-stack { display: grid; gap: 20px; }
+    .info-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .info-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .info-box p { font-size: 0.94rem; color: var(--muted); }
+    .banner-preview {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 20px;
+      align-items: center;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .banner-preview img {
+      border-radius: 10px;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+    }
+
+    /* Bloco Carrossel Interativo sobre Gráfica */
+    .carousel-layout {
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      gap: 52px;
+      align-items: center;
+    }
+    .carousel-shell {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      margin-inline: auto;
+    }
+    .carousel-viewport {
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 54px rgba(7, 13, 44, 0.16);
+      background: var(--navy);
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .c-slide {
+      min-width: 100%;
+      aspect-ratio: 4 / 5;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px;
+      color: var(--white);
+      background: var(--navy);
+      overflow: hidden;
+    }
+    .c-slide.light {
+      background: var(--paper);
+      color: var(--navy);
+    }
+    .c-slide-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.32;
+      z-index: 0;
+    }
+    .c-slide-photo {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 230px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .c-slide.light .c-slide-photo { border-color: var(--line); }
+    .c-slide-top, .c-slide-body, .c-slide-foot { position: relative; z-index: 2; }
+    .c-slide-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .c-slide.light .c-slide-top { color: var(--gold-ink); }
+    .c-slide-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+    .c-slide-body p {
+      font-size: 0.94rem;
+      opacity: 0.88;
+      line-height: 1.48;
+    }
+    .c-slide-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 0.76rem;
+      opacity: 0.8;
+    }
+    .c-slide.light .c-slide-foot { border-top-color: var(--line); }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+    .c-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--navy);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .c-btn:hover { background: var(--navy); color: var(--white); }
+    .c-dots { display: flex; gap: 8px; }
+    .c-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(7, 13, 44, 0.2);
+      border: 0;
+      cursor: pointer;
+    }
+    .c-dot.active { background: var(--navy); width: 24px; border-radius: 99px; }
+
+    /* Bloco Google Meu Negócio */
+    .gmb-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .gmb-mockup {
+      background: var(--white);
+      color: var(--ink);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25);
+    }
+    .gmb-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .gmb-header h3 { font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 4px; }
+    .gmb-stars { color: #f59e0b; font-size: 0.9rem; font-weight: 700; }
+    .gmb-meta { font-size: 0.82rem; color: #4b5563; margin-top: 4px; }
+    .gmb-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--blue-g);
+      background: #e8f0fe;
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .gmb-posts-wrap {
+      padding: 20px 24px 24px;
+      background: #f8fafc;
+    }
+    .gmb-posts-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #4b5563;
+      margin-bottom: 14px;
+    }
+    .gmb-posts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .gmb-post {
+      background: var(--white);
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .gmb-post img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+    .gmb-post-body { padding: 12px; }
+    .gmb-post-body strong { display: block; font-size: 0.86rem; color: #111827; margin-bottom: 4px; }
+    .gmb-post-body p { font-size: 0.78rem; color: #4b5563; line-height: 1.4; }
+    .gmb-post-cta {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--blue-g);
+    }
+
+    .gmb-benefits { display: grid; gap: 18px; }
+    .gmb-item {
+      padding: 22px 24px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line-dark);
+    }
+    .gmb-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .gmb-item p { font-size: 0.94rem; color: rgba(255, 255, 255, 0.8); }
+
+    /* Fluxo Semanal */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .step-box {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 26px 22px;
+    }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--gold-ink);
+      margin-bottom: 10px;
+    }
+    .step-box h3 { font-family: var(--font-display); font-size: 1.12rem; color: var(--navy); margin-bottom: 8px; }
+    .step-box p { font-size: 0.9rem; color: var(--muted); }
+
+    /* Fechamento */
+    .cta-box {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 20px;
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .cta-box h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+      margin-bottom: 8px;
+    }
+    .cta-box p { color: rgba(255, 255, 255, 0.78); max-width: 56ch; }
+
+    footer {
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid, .media-showcase, .carousel-layout, .gmb-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav { display: none; }
+    }
+    @media (max-width: 600px) {
+      .steps-grid, .gmb-posts, .banner-preview { grid-template-columns: 1fr; }
+      .cta-box { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand-bar">
+        <img src="../assets/reais/logo-real-unificada.svg" alt="Gráfica Real Express e Real Fachadas ACM">
+        <span class="agency-pill">Apresentação • DLuz Digital</span>
+      </div>
+      <nav class="nav">
+        <a href="#video">Vídeo Reels</a>
+        <a href="#carrossel">Carrossel Gráfica</a>
+        <a href="#google">Google Meu Negócio</a>
+        <a href="#como-funciona">Como Funciona</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ABERTURA -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Plano de Presença Digital • Paraíso do Tocantins - TO</span>
+          <h1>Como a <em>DLuz Digital</em> vai gerar novos pedidos toda semana para vocês.</h1>
+          <p>
+            Montamos esta apresentação interativa com materiais <strong>já prontos usando as obras reais de vocês</strong> — para o Siley, o Pedro e toda a equipe verem na prática o padrão de entrega antes de fechar.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-navy" href="../" target="_blank">Abrir Site Oficial Pronto ↗</a>
+            <a class="btn btn-outline" href="../links/" target="_blank">Abrir Link da Bio Pronto ↗</a>
+          </div>
+        </div>
+
+        <aside class="cadence-card">
+          <div>
+            <span class="eyebrow" style="color:var(--gold); margin-bottom:8px;">Escopo Completo</span>
+            <h2>O que entregamos todos os meses</h2>
+          </div>
+          <ul class="cadence-list">
+            <li><span>Vídeo Editado (Reels Motion Design)</span><strong>1 por semana</strong></li>
+            <li><span>Carrossel Estratégico (Gráfica &amp; ACM)</span><strong>1 por semana</strong></li>
+            <li><span>Post / Arte Profissional no Feed</span><strong>1 por semana</strong></li>
+            <li><span>Postagens no Google Meu Negócio</span><strong>Ativo toda semana</strong></li>
+            <li><span>Site Oficial + Link da Bio + Tráfego Pago</span><strong>Inclusos</strong></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SERVIÇO 1: VÍDEO EDITADO + BANNER -->
+    <section class="block white" id="video">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Entrega Semanal 01 • 1 Vídeo Editado + 1 Post</span>
+          <h2>Reels em Motion Design com as obras reais de vocês.</h2>
+          <p>A equipe manda vídeos curtinhos pelo celular e nós transformamos em um vídeo de alto padrão com narração, trilha moderna, animações e os 3 WhatsApps oficiais. Dê o play abaixo:</p>
+        </div>
+
+        <div class="media-showcase">
+          <div class="phone-frame">
+            <video controls playsinline preload="metadata" poster="../assets/reais/obra_otica_renata.jpg">
+              <source src="../assets/reais/reels_motion_web.mp4" type="video/mp4">
+              Seu navegador não suporta reprodução de vídeo.
+            </video>
+          </div>
+
+          <div class="feature-stack">
+            <div class="info-box">
+              <h3>1 Vídeo Editado por Semana (Reels)</h3>
+              <p>Alternamos entre <strong>obras de Fachadas em ACM / Letras Caixa</strong> (para atrair empresários de ticket alto) e <strong>bastidores da Gráfica Real Express</strong> (troféus, gravação a laser, brindes e impressão 3D).</p>
+            </div>
+            <div class="info-box">
+              <h3>Site Oficial + Link da Bio Próprio</h3>
+              <p>Substituímos o Linktree por um link próprio (<code>realfachadas.dluz.com.br/links</code>) com botões diretos para <strong>Siley (ACM)</strong>, <strong>Pedro (ACM)</strong> e <strong>Gráfica Geral</strong>, passando muito mais credibilidade.</p>
+            </div>
+            <div class="banner-preview">
+              <img src="../assets/reais/banner_oficial.jpg" alt="Exemplo de Post/Banner Semanal">
+              <div>
+                <span class="eyebrow" style="margin-bottom:6px;">1 Post Semanal</span>
+                <h3 style="font-family:var(--font-display); color:var(--navy); font-size:1.15rem; margin-bottom:6px;">Artes de Alto Impacto no Feed</h3>
+                <p style="font-size:0.88rem; color:var(--muted);">Toda semana um banner profissional destacando ofertas sazonais, brindes corporativos ou fachadas em ACM para rodar no feed e nos anúncios.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇO 2: CARROSSEL INTERATIVO SOBRE GRÁFICA -->
+    <section class="block" id="carrossel">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Entrega Semanal 02 • 1 Carrossel por Semana</span>
+          <h2>Exemplo real de Carrossel sobre a Gráfica Real Express.</h2>
+          <p>Clique nas setas abaixo para passar os 5 slides — é exatamente assim que apresentamos os serviços da gráfica para gerar pedidos toda semana no WhatsApp:</p>
+        </div>
+
+        <div class="carousel-layout">
+          <div class="carousel-shell">
+            <div class="carousel-viewport">
+              <div class="carousel-track" id="c-track">
+                <!-- SLIDE 1 -->
+                <article class="c-slide">
+                  <img class="c-slide-bg" src="../assets/reais/obra_trofeus.jpg" alt="">
+                  <div class="c-slide-top"><span>Gráfica Real Express</span><span>01 / 05</span></div>
+                  <div class="c-slide-body">
+                    <h3>Muito além de impressos: tudo para sua empresa em um só lugar.</h3>
+                    <p>Há mais de 30 anos em Paraíso do Tocantins transformando ideias em acabamento de verdade.</p>
+                  </div>
+                  <div class="c-slide-foot"><span>@graficarealpso</span><span>Arraste para o lado →</span></div>
+                </article>
+
+                <!-- SLIDE 2 -->
+                <article class="c-slide light">
+                  <div class="c-slide-top"><span>Corte &amp; Gravação a Laser</span><span>02 / 05</span></div>
+                  <img class="c-slide-photo" src="../assets/reais/obra_trofeus.jpg" alt="Troféus em acrílico e dourado">
+                  <div class="c-slide-body">
+                    <h3>Troféus, Acrílico &amp; MDF sob medida</h3>
+                    <p>Peças exclusivas para eventos, premiações, placas de homenagem e sinalização interna com corte preciso.</p>
+                  </div>
+                  <div class="c-slide-foot"><span>Produção própria</span><span>Rua 13 de Maio, 581</span></div>
+                </article>
+
+                <!-- SLIDE 3 -->
+                <article class="c-slide">
+                  <div class="c-slide-top"><span>Letreiros &amp; Identidade Interna</span><span>03 / 05</span></div>
+                  <img class="c-slide-photo" src="../assets/reais/obra_osieliane.jpg" alt="Letreiro dourado Osieliane Fotografia">
+                  <div class="c-slide-body">
+                    <h3>Acrílico Espelhado que valoriza sua recepção</h3>
+                    <p>Sua logomarca em alto relevo dourado ou prata para consultórios, escritórios, estúdios e lojas.</p>
+                  </div>
+                  <div class="c-slide-foot"><span>@graficarealpso • @real_fachadasacm</span><span>03 / 05</span></div>
+                </article>
+
+                <!-- SLIDE 4 -->
+                <article class="c-slide light">
+                  <div class="c-slide-top"><span>Brindes &amp; Tecnologia 3D</span><span>04 / 05</span></div>
+                  <img class="c-slide-photo" src="../assets/reais/obra_totem_box63.jpg" alt="Comunicação visual e brindes">
+                  <div class="c-slide-body">
+                    <h3>Copos Térmicos, Brindes &amp; Impressão 3D</h3>
+                    <p>Personalização a laser em copos, garrafas, facas, chaveiros, carimbos, adesivos e projetos em impressão 3D.</p>
+                  </div>
+                  <div class="c-slide-foot"><span>Atendimento rápido</span><span>04 / 05</span></div>
+                </article>
+
+                <!-- SLIDE 5 -->
+                <article class="c-slide">
+                  <div class="c-slide-top"><span>Peça seu Orçamento</span><span>05 / 05</span></div>
+                  <div class="c-slide-body">
+                    <h3>Fale direto com a nossa equipe no WhatsApp.</h3>
+                    <p>
+                      <strong>Gráfica Real (Geral):</strong> (63) 3602-2156<br>
+                      <strong>Siley (Fachadas ACM):</strong> (63) 98449-8130<br>
+                      <strong>Pedro (Fachadas ACM):</strong> (63) 99231-2628<br><br>
+                      📍 Rua 13 de Maio, nº 581 — Centro, Paraíso do Tocantins - TO
+                    </p>
+                  </div>
+                  <div class="c-slide-foot"><span>Salve este post</span><span>@graficarealpso</span></div>
+                </article>
+              </div>
+            </div>
+
+            <div class="carousel-controls">
+              <button class="c-btn" id="c-prev" aria-label="Slide anterior">←</button>
+              <div class="c-dots" id="c-dots"></div>
+              <button class="c-btn" id="c-next" aria-label="Próximo slide">→</button>
+            </div>
+          </div>
+
+          <div class="feature-stack">
+            <div class="info-box" style="background:var(--white)">
+              <h3>Por que Carrossel converte tanto?</h3>
+              <p>O Instagram entrega o carrossel duas vezes para quem não engajou na primeira. É o melhor formato para educar empresários sobre <strong>ACM vs Lona</strong>, mostrar o catálogo da gráfica (troféus, laser, brindes, 3D) e gerar salvamentos.</p>
+            </div>
+            <div class="info-box" style="background:var(--white)">
+              <h3>100% na identidade de vocês</h3>
+              <p>Cada carrossel usa as fotos reais das entregas de vocês em Paraíso do Tocantins, com escrita clara e chamada direta para o WhatsApp certo de cada setor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇO 3: GOOGLE MEU NEGÓCIO COM POSTAGENS SEMANAIS -->
+    <section class="block dark" id="google">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Entrega Contínua • Google Meu Negócio &amp; Google Maps</span>
+          <h2>Postagens semanais direto na ficha de vocês no Google.</h2>
+          <p>Quando um empresário pesquisa <em>"fachada acm paraíso do tocantins"</em> ou <em>"gráfica perto de mim"</em>, o Google prioriza quem mantém a ficha viva com fotos reais e postagens toda semana.</p>
+        </div>
+
+        <div class="gmb-grid">
+          <div class="gmb-mockup">
+            <div class="gmb-header">
+              <div>
+                <h3>Gráfica Real Express &amp; Real Fachadas ACM</h3>
+                <div class="gmb-stars">★★★★★ <span style="color:#4b5563; font-weight:500;">(Perfil Otimizado no Google Maps)</span></div>
+                <div class="gmb-meta">Gráfica • Comunicação Visual • Rua 13 de Maio, 581 — Centro, Paraíso do Tocantins</div>
+              </div>
+              <span class="gmb-badge">Gerenciado pela DLuz</span>
+            </div>
+
+            <div class="gmb-posts-wrap">
+              <div class="gmb-posts-label">Exemplos de Postagens que fazemos toda semana no Google:</div>
+              <div class="gmb-posts">
+                <article class="gmb-post">
+                  <img src="../assets/reais/obra_otica_renata.jpg" alt="Post Google Meu Negócio Fachada ACM">
+                  <div class="gmb-post-body">
+                    <strong>Fachadas em ACM com LED</strong>
+                    <p>Projeto concluído em Paraíso do Tocantins. Revestimento em ACM e letra caixa iluminada com acabamento de alto padrão.</p>
+                    <span class="gmb-post-cta">Solicitar orçamento →</span>
+                  </div>
+                </article>
+
+                <article class="gmb-post">
+                  <img src="../assets/reais/obra_trofeus.jpg" alt="Post Google Meu Negócio Gráfica Real">
+                  <div class="gmb-post-body">
+                    <strong>Troféus, Laser &amp; Impressão 3D</strong>
+                    <p>Personalização em acrílico, MDF, copos térmicos e brindes corporativos com entrega rápida no centro de Paraíso.</p>
+                    <span class="gmb-post-cta">Falar no WhatsApp →</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="gmb-benefits">
+            <div class="gmb-item">
+              <h3>1. Postagens Semanais no Google Maps</h3>
+              <p>Publicamos novidades, obras entregues e serviços diretamente na ficha do Google toda semana — exatamente como no exemplo ao lado, com botão levando direto para o site e WhatsApp.</p>
+            </div>
+            <div class="gmb-item">
+              <h3>2. Catálogo Completo de Serviços Buscáveis</h3>
+              <p>Cadastramos cada serviço com as palavras que o público realmente pesquisa: <em>fachada ACM, letra caixa LED, totem, corte a laser, troféus, carimbos, copo térmico e impressão 3D</em>.</p>
+            </div>
+            <div class="gmb-item">
+              <h3>3. Fotos Reais Atualizadas &amp; Tráfego Local</h3>
+              <p>Subimos fotos nítidas das obras entregues para aumentar cliques em "Ligar", "Rotas" e "Site", somando força orgânica com os anúncios pagos no Instagram e Facebook.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA NA PRÁTICA -->
+    <section class="block" id="como-funciona">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Rotina Simples • Sem Dar Trabalho pra Equipe</span>
+          <h2>Como o serviço é prestado toda semana.</h2>
+          <p>Vocês continuam focados em produzir e instalar obras; nós cuidamos de transformar isso em conteúdo profissional e novos orçamentos.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-box">
+            <div class="step-num">01</div>
+            <h3>Envio em 5 minutos</h3>
+            <p>A equipe manda no WhatsApp (em HD) fotos e 3 a 5 trechos curtos no celular de uma obra ou produção da semana.</p>
+          </div>
+          <div class="step-box">
+            <div class="step-num">02</div>
+            <h3>Produção DLuz Digital</h3>
+            <p>Nós criamos o roteiro, editamos o vídeo (Reels), desenhamos o carrossel, o post e a atualização do Google Meu Negócio.</p>
+          </div>
+          <div class="step-box">
+            <div class="step-num">03</div>
+            <h3>Aprovação Rápida</h3>
+            <p>Enviamos tudo pronto no grupo do WhatsApp para vocês revisarem e aprovarem antes de ir ao ar.</p>
+          </div>
+          <div class="step-box">
+            <div class="step-num">04</div>
+            <h3>Publicação &amp; Anúncios</h3>
+            <p>Agendamos no Instagram, Facebook e Google Meu Negócio, e rodamos anúncios levando interessados direto pro WhatsApp do Siley, Pedro e Gráfica.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FECHAMENTO -->
+    <section class="block" style="padding-top:0;">
+      <div class="wrap">
+        <div class="cta-box">
+          <div>
+            <h2>Prontos para colocar tudo isso no ar?</h2>
+            <p>O site oficial, o link da bio, o vídeo em motion design e o carrossel de amostra já estão prontos. Vamos alinhar os detalhes e começar esta semana.</p>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn btn-gold" href="../" target="_blank">Ver Site Oficial</a>
+            <a class="btn btn-outline" href="../links/" target="_blank">Ver Link da Bio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Apresentação preparada exclusivamente pela <strong>DLuz Digital</strong> para <strong>Gráfica Real Express &amp; Real Fachadas ACM</strong> • Paraíso do Tocantins - TO.
+  </footer>
+
+  <script>
+    const track = document.getElementById('c-track');
+    const dotsWrap = document.getElementById('c-dots');
+    const slides = track.children.length;
+    let idx = 0;
+
+    for (let i = 0; i < slides; i++) {
+      const d = document.createElement('button');
+      d.className = 'c-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', `Slide ${i + 1}`);
+      d.addEventListener('click', () => go(i));
+      dotsWrap.appendChild(d);
+    }
+
+    function go(n) {
+      idx = (n + slides) % slides;
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      Array.from(dotsWrap.children).forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    document.getElementById('c-prev').addEventListener('click', () => go(idx - 1));
+    document.getElementById('c-next').addEventListener('click', () => go(idx + 1));
+
+    // Swipe touch no celular
+    let sx = 0;
+    track.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) go(dx < 0 ? idx + 1 : idx - 1);
+    });
+  </script>
+</body>
+</html>
